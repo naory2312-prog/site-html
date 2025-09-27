@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Site démo — HTML & CSS</title>
+  <meta name="description" content="Template simple et responsive en HTML/CSS" />
+  <style>
+    /* -----------------------
+       Variables & reset
+       ----------------------- */
+    
+    :root
+    { --bg: #0f1724; --card: #0b1220; --muted: #9aa4b2; --accent: #06b6d4; /* cyan-ish */ --glass: rgba(255,255,255,0.04); --radius: 14px; --max-width: 1100px; --gap: 24px; --shadow: 0 6px 20px rgba(2,6,23,0.6); font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg, #071124 0%, #071630 60%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding:32px 18px;
+      display:flex;
+      justify-content:center;
+      font-size:16px;
+    }
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+      margin:0 auto;
+    }
+
+    /* -----------------------
+       Header / Nav
+       ----------------------- */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:var(--gap);
+      margin-bottom:28px;
+    }
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      text-decoration:none;
+      color:inherit;
+    }
+    .logo{
+      width:46px;height:46px;
+      background:linear-gradient(135deg,var(--accent),#7c3aed);
+      border-radius:10px;
+      display:grid;place-items:center;
+      box-shadow:var(--shadow);
+      font-weight:700;
+    }
+    nav{
+      display:flex;
+      gap:18px;
+      align-items:center;
+    }
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      padding:10px 12px;
+      border-radius:10px;
+      font-weight:600;
+      transition:all .18s ease;
+      font-size:0.95rem;
+    }
+    nav a:hover{ color:var(--accent); transform:translateY(-2px) }
+    .cta{
+      background:linear-gradient(90deg,var(--accent),#7c3aed);
+      color:#021024;
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:700;
+      text-decoration:none;
+    }
+
+    /* mobile menu */
+    .menu-toggle{ display:none; background:transparent;border:0;color:var(--muted); font-size:1.15rem; }
+
+    /* -----------------------
+       Hero
+       ----------------------- */
+    .hero{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      padding:36px;
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:28px;
+      align-items:center;
+      margin-bottom:26px;
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .hero h1{
+      margin:0 0 12px 0;
+      font-size:2.1rem;
+      line-height:1.05;
+      letter-spacing:-0.01em;
+    }
+    .hero p{ color:var(--muted); margin:0 0 18px 0; }
+    .hero .actions{ display:flex; gap:12px; align-items:center }
+    .button{
+      padding:10px 14px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+      border:0;
+      cursor:pointer;
+    }
+    .button.primary{ background:var(--accent); color:#021024; }
+    .button.ghost{ background:transparent; color:var(--muted); border:1px solid rgba(255,255,255,0.04) }
+
+    /* sample card on the right */
+    .card{
+      background:var(--card);
+      border-radius:12px;
+      padding:18px;
+      box-shadow: 0 8px 30px rgba(4,10,20,0.6);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    /* -----------------------
+       Features grid
+       ----------------------- */
+    .features{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:18px;
+      margin-bottom:28px;
+    }
+    .feature{
+      background:var(--glass);
+      padding:18px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .feature h3{ margin:0 0 8px 0; font-size:1.05rem }
+    .feature p{ margin:0; color:var(--muted); font-size:0.95rem }
+
+    /* -----------------------
+       Footer / contact
+       ----------------------- */
+    footer{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* -----------------------
+       Responsive
+       ----------------------- */
+    @media (max-width:980px){
+      .hero{ grid-template-columns:1fr; }
+      .features{ grid-template-columns: repeat(2,1fr); }
+      nav{ display:none; }
+      .menu-toggle{ display:inline-flex; gap:8px; align-items:center; }
+    }
+    @media (max-width:620px){
+      body{ padding:18px 12px }
+      .features{ grid-template-columns: 1fr; }
+      .hero{ padding:20px }
+      header{ flex-direction:column; align-items:flex-start; gap:14px }
+      footer{ flex-direction:column; align-items:flex-start; gap:10px }
+    }
+
+    /* small form */
+    .contact-form{ display:grid; gap:10px }
+    .input, textarea{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.06);
+      padding:10px 12px;
+      border-radius:8px;
+      color:inherit;
+      font:inherit;
+      outline:none;
+    }
+    .input::placeholder, textarea::placeholder{ color: rgba(255,255,255,0.28) }
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <header>
+      <a class="brand" href="#">
+        <div class="logo" aria-hidden="true">S</div>
+        <div>
+          <div style="font-weight:800">SiteDemo</div>
+          <div style="font-size:0.85rem;color:var(--muted)">Template HTML & CSS</div>
+        </div>
+      </a>
+
+      <div style="display:flex;gap:12px;align-items:center">
+        <nav aria-label="Navigation principale">
+          <a href="#features">Fonctionnalités</a>
+          <a href="#pricing">Tarifs</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" id="menuBtn">
+          ☰ <span class="sr-only" style="margin-left:8px">Menu</span>
+        </button>
+
+        <a class="cta" href="#contact">Me contacter</a>
+      </div>
+    </header>
+
+    <section class="hero" aria-labelledby="heroTitle">
+      <div>
+        <h1 id="heroTitle">Un template moderne — prêt à personnaliser</h1>
+        <p>Design responsive, accessible et léger. Modifiez le texte, les couleurs et les sections pour construire votre site en quelques minutes.</p>
+        <div class="actions">
+          <a href="#features" class="button primary">Voir les fonctionnalités</a>
+          <a href="#contact" class="button ghost">Demander un devis</a>
+        </div>
+
+        <div style="margin-top:20px;color:var(--muted);font-size:0.95rem">
+          <strong>Conseil :</strong> changez la variable <code>--accent</code> en haut pour ajuster rapidement la palette.
+        </div>
+      </div>
+
+      <aside class="card" aria-label="Aperçu rapide">
+        <h4 style="margin:0 0 8px 0">Aperçu rapide</h4>
+        <p style="margin:0 0 14px;color:var(--muted)">Un bloc d'exemple : logo, CTA, et un petit formulaire de contact ci-dessous.</p>
+
+        <form id="miniContact" class="contact-form" onsubmit="event.preventDefault(); alert('Merci — formulaire simulé');">
+          <input class="input" type="text" required placeholder="Votre nom" />
+          <input class="input" type="email" required placeholder="email@exemple.com" />
+          <button class="button primary" type="submit">Envoyer</button>
+        </form>
+      </aside>
+    </section>
+
+    <section id="features" class="features" aria-label="Fonctionnalités">
+      <article class="feature">
+        <h3>BlaBlaBla</h3>
+        <p>BlaBlaBla</p>
+      </article>
+
+      <article class="feature">
+        <h3>BlaBlaBla</p>
+        <p>BlaBlaBla</p>
+      </article>
+
+      <article class="feature">
+        <h3>Bla Bla</h3>
+        <p>Bla Bla</p>
+      </article>
+    </section>
+
+    <section id="pricing" style="margin-bottom:28px;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
+        <div class="card">
+          <h3 style="margin-top:0">Free</h3>
+          <p style="color:var(--muted)">Template de base — idéal pour prototypes.</p>
+          <p style="font-weight:800;margin-top:10px">€0</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">Pro</h3>
+          <p style="color:var(--muted)">Personnalisation rapide + assistance.</p>
+          <p style="font-weight:800;margin-top:10px">€49</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">Agence</h3>
+          <p style="color:var(--muted)">Package complet : intégration & maintenance.</p>
+          <p style="font-weight:800;margin-top:10px">Sur devis</p>
+        </div>
+      </div>
+    </section>
+
+    <footer id="contact">
+      <div>
+        <strong>Contact</strong>
+        <div style="color:var(--muted)">email@votresite.com · +33 6 12 34 56 78</div>
+      </div>
+
+      <form style="min-width:300px;max-width:420px" class="contact-form" onsubmit="event.preventDefault(); alert('Message envoyé (simulateur)');">
+        <input class="input" type="text" placeholder="Nom" required />
+        <input class="input" type="email" placeholder="Email" required />
+        <textarea class="input" rows="3" placeholder="Votre message" required></textarea>
+        <div style="display:flex;justify-content:flex-end;margin-top:8px">
+          <button class="button primary" type="submit">Envoyer</button>
+        </div>
+      </form>
+    </footer>
+  </div>
+
+  <script>
+    // petit JS pour le menu mobile
+    (function(){
+      const btn = document.getElementById('menuBtn');
+      let open = false;
+
+      btn.addEventListener('click', () => {
+        open = !open;
+        btn.setAttribute('aria-expanded', String(open));
+        // on clone simplement le nav dans un menu mobile temporaire
+        const existing = document.getElementById('mobile-menu');
+        if(open){
+          const nav = document.createElement('nav');
+          nav.id = 'mobile-menu';
+          nav.style.position = 'absolute';
+          nav.style.right = '18px';
+          nav.style.top = '84px';
+          nav.style.background = 'linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))';
+          nav.style.padding = '12px';
+          nav.style.borderRadius = '12px';
+          nav.style.boxShadow = '0 8px 30px rgba(0,0,0,0.6)';
+          nav.innerHTML = '<a href=\"#features\" style=\"display:block;padding:8px 10px;color:var(--muted);text-decoration:none\">Fonctionnalités</a>' +
+                          '<a href=\"#pricing\" style=\"display:block;padding:8px 10px;color:var(--muted);text-decoration:none\">Tarifs</a>' +
+                          '<a href=\"#contact\" style=\"display:block;padding:8px 10px;color:var(--muted);text-decoration:none\">Contact</a>';
+          nav.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> { nav.remove(); open=false; btn.setAttribute('aria-expanded','false') }));
+          document.body.appendChild(nav);
+        } else {
+          existing && existing.remove();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
